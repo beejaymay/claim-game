@@ -41,6 +41,21 @@ export default function Game() {
     return Math.ceil(Math.random() * 10)
   }
 
+  const clobberWorld = () => {
+    let dmg = randomDamage() + 10
+    let didHit = (Math.random() > 0.5)
+    if (didHit) {
+      setWorldDamage(worldDamage + dmg)
+      setFeed([...feed, `Player CLOBBERED World for ${dmg} damage!`])
+    } else {
+      setFeed([...feed, `Player tried to CLOBBER World, but missed!`])
+    }
+    setIsPlayerTurn(false)
+    setTimeout(() => {
+      setIsWorldTurn(true)
+    }, 500)
+  }
+
   const bonkWorld = () => {
     let dmg = randomDamage()
     setWorldDamage(worldDamage + dmg)
@@ -61,8 +76,8 @@ export default function Game() {
 
   return (
     <>
-      <Player damage={playerDamage} action={bonkWorld} isTurn={isPlayerTurn} />
-      <World damage={worldDamage} action={bonkPlayer} isTurn={isWorldTurn} />
+      <Player damage={playerDamage} bonk={bonkWorld} clobber={clobberWorld} isTurn={isPlayerTurn} />
+      <World damage={worldDamage} bonk={bonkPlayer} isTurn={isWorldTurn} />
       <Feed feed={feed} />
     </>
   )

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 
 export default function World(props) {
 
-  const { damage, action, isTurn } = props
+  const { damage, bonk, isTurn } = props
 
   useEffect(() => {
     if (isTurn) {
-      action()
+      bonk()
     }
   })
 

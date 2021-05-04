@@ -1,33 +1,13 @@
 import React from "react"
-import { useRecoilValue, useSetRecoilState, atom } from 'recoil'
 
+export default function Player(props) {
 
-
-const playerState = atom({
-  key: 'playerBonked',
-  default: 0
-})
-
-const worldState = atom({
-  key: 'worldBonked',
-  default: 0
-})
-
-export default function Player() {
-
-  const getPlayerState = useRecoilValue(playerState)
-  const setWorldState = useSetRecoilState(worldState)
-
-  const bonkWorld = () => {
-    setWorldState((prevWorldState) => {
-      return 
-    })
-  }
+  const { damage, action, isTurn } = props
 
   return (
     <div>
-      <div>Player (bonked for {getPlayerState} damage)</div>
-      <button>BONK the World</button>
+      <div>PLAYER (has taken {damage} damage)</div>
+      <button disabled={!isTurn} onClick={() => action()}>BONK the World</button>
     </div>
   )
 }

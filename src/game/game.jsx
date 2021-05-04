@@ -20,6 +20,11 @@ const _isPlayerTurn = atom({
   default: true
 })
 
+const _isWorldTurn = atom ({
+  key: 'isWorldTurn',
+  default: false
+})
+
 const _feed = atom({
   key: 'feed',
   default: []
@@ -29,6 +34,7 @@ export default function Game() {
   const [playerDamage, setPlayerDamage] = useRecoilState(_playerDamage)
   const [worldDamage, setWorldDamage] = useRecoilState(_worldDamage)
   const [isPlayerTurn, setIsPlayerTurn] = useRecoilState(_isPlayerTurn)
+  const [isWorldTurn, setIsWorldTurn] = useRecoilState(_isWorldTurn)
   const [feed, setFeed] = useRecoilState(_feed)
 
   const randomDamage = () => {
@@ -40,19 +46,23 @@ export default function Game() {
     setWorldDamage(worldDamage + dmg)
     setFeed([...feed, `Player bonked World for ${dmg} damage.`])
     setIsPlayerTurn(false)
+    setTimeout(() => {
+      setIsWorldTurn(true)
+    }, 500)
   }
 
   const bonkPlayer = () => {
     let dmg = randomDamage()
     setPlayerDamage(playerDamage + dmg)
     setFeed([...feed, `World bonked Player for ${dmg} damage.`])
+    setIsWorldTurn(false)
     setIsPlayerTurn(true)
   }
 
   return (
     <>
       <Player damage={playerDamage} action={bonkWorld} isTurn={isPlayerTurn} />
-      <World damage={worldDamage} action={bonkPlayer} isTurn={!isPlayerTurn} />
+      <World damage={worldDamage} action={bonkPlayer} isTurn={isWorldTurn} />
       <Feed feed={feed} />
     </>
   )

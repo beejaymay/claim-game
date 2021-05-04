@@ -6,8 +6,8 @@ export default function Feed(props) {
   return (
     <div>
       Here's what happened:
-      { feed.map(item => {
-        return <div>{item}</div>
+      { feed.map((item, idx) => {
+        return <div key={`item${idx}`}>{item}</div>
       })}
     </div>
   )

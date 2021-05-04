@@ -2,6 +2,8 @@ import React from 'react'
 import { RecoilRoot } from 'recoil'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
+import Game from "./game/game"
+
 export default function App() {
   return (
     <div className='App'>
@@ -9,7 +11,7 @@ export default function App() {
         <RecoilRoot>
           <Switch>
             <Route path='/'>
-              <h1>Claim Game</h1>
+              <Game />
             </Route>
           </Switch>
         </RecoilRoot>

@@ -1,5 +1,5 @@
 {
-  "name": "bottlebarker",
+  "name": "claim-game",
   "version": "1.0.0",
   "description": "The world's first fair method for dealing with allocated bottles.",
   "main": "index.js",

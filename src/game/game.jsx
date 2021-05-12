@@ -5,6 +5,8 @@ import Player from '../player/player'
 import World from '../world/world'
 import Feed from '../feed/feed'
 
+import { policies } from './atoms/policies'
+
 const _worldDamage = atom({
   key: 'worldDamage',
   default: 0
@@ -36,6 +38,7 @@ export default function Game() {
   const [isPlayerTurn, setIsPlayerTurn] = useRecoilState(_isPlayerTurn)
   const [isWorldTurn, setIsWorldTurn] = useRecoilState(_isWorldTurn)
   const [feed, setFeed] = useRecoilState(_feed)
+  const [_policies, setPolicies] = useRecoilState(policies)
 
   const randomDamage = () => {
     return Math.ceil(Math.random() * 10)
@@ -67,16 +70,30 @@ export default function Game() {
   }
 
   const bonkPlayer = () => {
-    let dmg = randomDamage()
+    let protection = _policies[0] ? _policies[0].protection : 0;
+    let dmg = randomDamage() - protection
+    dmg = dmg < 0 ? 0 : dmg
     setPlayerDamage(playerDamage + dmg)
-    setFeed([...feed, `World bonked Player for ${dmg} damage.`])
+    setFeed([...feed, `World bonked Player for ${dmg} damage.${protection > 0 ? " (protected from " + protection + " damage)" : ""}`])
     setIsWorldTurn(false)
     setIsPlayerTurn(true)
   }
 
+  const addPolicy = () => {
+    setPolicies([..._policies, {
+      type: 'homeowners',
+      protection: 5
+    }])
+    setFeed([...feed, `Player bought a 5 protection policy.`])
+    setIsPlayerTurn(false)
+    setTimeout(() => {
+      setIsWorldTurn(true)
+    }, 500)
+  }
+
   return (
     <>
-      <Player damage={playerDamage} bonk={bonkWorld} clobber={clobberWorld} isTurn={isPlayerTurn} />
+      <Player damage={playerDamage} addPolicy={addPolicy} bonk={bonkWorld} clobber={clobberWorld} isTurn={isPlayerTurn} />
       <World damage={worldDamage} bonk={bonkPlayer} isTurn={isWorldTurn} />
       <Feed feed={feed} />
     </>

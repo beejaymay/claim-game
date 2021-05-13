@@ -14,19 +14,19 @@ export default function World(props) {
     setActiveEventTypes([...activeEventTypes, eventType])
   }
 
-  const randomizeEvent = () => {
+  const randomizeEventType = () => {
     const random = Math.random()
     let totalChance = 0
-    let randomEvent = null
+    let randomEventType = null
     _activeEventTypes.every(eventType => {
       totalChance += eventType.chance
       if (random <= totalChance) {
-        randomEvent = eventType
+        randomEventType = eventType
         return false
       }
       return true
     })
-    return randomEvent
+    return randomEventType
   }
 
   useEffect(() => {

@@ -1,12 +1,16 @@
 import { selector } from 'recoil'
 
 import { activeEventTypes } from '../atoms'
+import { totalEventChance } from './totalEventChance'
 
 export default selector({
-  key: 'totalEventChance',
+  key: 'whenEventHappens',
   get: ({ get }) => {
     return get(activeEventTypes).map(eventType => {
-      return eventType.chance
-    }).reduce((sum, current) => sum + current, 0)
+      return {
+        ...eventType
+        
+      }
+    })
   }
 })

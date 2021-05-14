@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 
 export default atom({
-  key: 'playerDamage',
-  default: 0
+  key: 'playerPaycheck',
+  default: 15
 })

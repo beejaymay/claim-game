@@ -1,4 +1,4 @@
-import { atom, useSetRecoilState } from 'recoil'
+import { atom } from 'recoil'
 
 export default atom({
   key: 'isPlayerTurn',

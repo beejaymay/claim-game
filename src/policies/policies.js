@@ -1,6 +1,10 @@
 export default {
   home: {
-    homeowners: {},
+    homeowners: [
+      {
+        name: "standard"
+      }
+    ],
     condominium: {},
     renters: {},
     rental: {},

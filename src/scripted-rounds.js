@@ -48,7 +48,11 @@ let rounds = {
                {
                 eventTypeOf: 'gain',
                 eventResult: eventResult.increaseFunds
-               }
+               },
+              {
+                actionText: 'Next',
+                action: action.advance
+              }
 
             ]
         }, 
